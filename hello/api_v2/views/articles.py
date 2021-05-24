@@ -34,4 +34,8 @@ class ArticleDetailUpdateDeleteView(APIView):
         serializer.save()
         return Response(data=serializer.data)
 
-
+    def get(self, request, *args, **kwargs):
+        article_id = self.kwargs.get('pk', 0)
+        instance = get_object_or_404(Article, id=article_id)
+        serializer = ArticleSerializer(instance=instance)
+        return Response(data=serializer.data)
